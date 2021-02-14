@@ -16,12 +16,11 @@ class ImportData:
                 if path.exists(path_to_patient):
                     patient = Patient.Patient()
                     ImportData.fill_patient(patient, row)
-                    with open(path_to_patient, newline='') as f:
-                        data = pd.read_csv(path_to_patient, sep='\\t', header=0)
-                        data.columns = ['Time', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8',
+                    data = pd.read_csv(path_to_patient, sep='\\t', header=0)
+                    data.columns = ['Time', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8',
                                     'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'Force_Left', 'Force_Right']
-                        patient.sensor_readings = data
-                        patient.walk_number = i
+                    patient.sensor_readings = data
+                    patient.walk_number = i
                     patients.append(patient)
         return patients
 
@@ -29,8 +28,7 @@ class ImportData:
     def get_demographics():
         path_to_data = ImportData.get_path()
         path_to_file = path_to_data + "demographics.txt"
-        with open(path_to_file, newline='') as f:
-            demographics = pd.read_csv(path_to_file, sep='\\t', header=0)
+        demographics = pd.read_csv(path_to_file, sep='\\t', header=0)
         return demographics
 
     @staticmethod
