@@ -42,7 +42,7 @@ class NeuralNetwork:
             self.train_labels.append(0.9999 if example.has_parkinson else 0)
             train_input = []
             for lam in lambdas:
-                train_input.append(lam(example))
+                train_input += (lam(example))
             train_inputs.append(train_input)
 
         self.model.fit(np.array(train_inputs), np.array(self.train_labels), epochs=number_of_epochs)

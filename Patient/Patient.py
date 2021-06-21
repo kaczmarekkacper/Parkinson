@@ -46,6 +46,13 @@ class Patient:
     def get_skewness(self):
         return statistics.mean(self.sensor_readings[['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'R1', 'R2', 'R3',
                                                      'R4', 'R5', 'R6', 'R7', 'R8']].skew())
+    def get_variance_all(self):
+        var_dict = self.sensor_readings[['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'R1', 'R2', 'R3',
+                                                     'R4', 'R5', 'R6', 'R7', 'R8']].var()
+        variance = [var_dict['L1'], var_dict['L2'], var_dict['L3'], var_dict['L4'], var_dict['L5'], var_dict['L6'],
+                    var_dict['L7'], var_dict['L8'], var_dict['R1'], var_dict['R2'], var_dict['R3'], var_dict['R4'],
+                    var_dict['R5'], var_dict['R6'], var_dict['R7'], var_dict['R8']]
+        return variance
 
     # def get_entropy(self):
     #     return self.sensor_readings[['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'R1', 'R2', 'R3', 'R4', 'R5',
