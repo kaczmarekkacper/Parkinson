@@ -24,9 +24,9 @@ if __name__ == '__main__':
     lambdas = [(lambda e: e.get_min()), (lambda e: e.get_max()), (lambda e: e.get_mean()), (lambda e: e.get_mode()),
                (lambda e: e.get_kurtosis()), (lambda e: e.get_skewness())]
 
-    # models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(), DecisionTree.DecisionTree(),
-    # RandomForest.RandomForest(), MLP.MLP(), QuadraticDiscriminant.QuadraticDiscriminant(), AdaBoost.AdaBoost(), AllTrue.AllTrue()]
-    models =[AllTrue.AllTrue()]
+    models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(), DecisionTree.DecisionTree(),
+    RandomForest.RandomForest(), MLP.MLP(), QuadraticDiscriminant.QuadraticDiscriminant(), AdaBoost.AdaBoost(), AllTrue.AllTrue()]
+    # models =[AllTrue.AllTrue()]
     for model in models:
         model.train(train_set=train_set, lambdas=lambdas)
         model.test(test_set=test_set, lambdas=lambdas)
