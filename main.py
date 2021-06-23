@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     # neural network mix
     lambdas = [(lambda e: e.get_min()), (lambda e: e.get_max()), (lambda e: e.get_mean()), (lambda e: e.get_mode()),
-               (lambda e: e.get_kurtosis()), (lambda e: e.get_skewness())]
+               (lambda e: e.get_kurtosis()), (lambda e: e.get_skewness()), (lambda e: e.get_energy()), (lambda e: e.get_coefficient_of_variation())]
 
     models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(), DecisionTree.DecisionTree(),
     RandomForest.RandomForest(), MLP.MLP(), QuadraticDiscriminant.QuadraticDiscriminant(), AdaBoost.AdaBoost(), AllTrue.AllTrue()]
