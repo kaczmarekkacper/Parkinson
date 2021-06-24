@@ -57,6 +57,10 @@ class Patient:
                     var_dict['R5'], var_dict['R6'], var_dict['R7'], var_dict['R8']]
         return variance
 
+    def get_correclation(self):
+        return statistics.mean(self.sensor_readings[['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'R1', 'R2', 'R3', 
+        'R4', 'R5', 'R6', 'R7', 'R8']].corr().mean())
+
     def get_coefficient_of_variation(self):
         return (np.std(self.sensor_readings[['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'R1', 'R2', 'R3', 'R4', 'R5',
                                         'R6', 'R7', 'R8']], ddof=1) / np.mean(self.sensor_readings[['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'R1', 'R2', 'R3', 'R4',

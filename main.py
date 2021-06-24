@@ -16,13 +16,14 @@ if __name__ == '__main__':
 
     # df_features = extract_features(GaPt03, column_id="ID", column_sort="Time")
     # print(df_features)
-    seed = 7
+    seed = 8
     train_set_proportion = 0.7
     train_set, test_set = ImportData.ImportData.split_data(patients, seed, train_set_proportion)
 
     # neural network mix
     lambdas = [(lambda e: e.get_min()), (lambda e: e.get_max()), (lambda e: e.get_mean()), (lambda e: e.get_mode()),
-               (lambda e: e.get_kurtosis()), (lambda e: e.get_skewness()), (lambda e: e.get_energy()), (lambda e: e.get_coefficient_of_variation())]
+               (lambda e: e.get_kurtosis()), (lambda e: e.get_skewness()), (lambda e: e.get_energy()),
+               (lambda e: e.get_correclation()), (lambda e: e.get_coefficient_of_variation())]
 
     models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(), DecisionTree.DecisionTree(),
     RandomForest.RandomForest(), MLP.MLP(), QuadraticDiscriminant.QuadraticDiscriminant(), AdaBoost.AdaBoost(), AllTrue.AllTrue()]
