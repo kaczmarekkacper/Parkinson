@@ -75,25 +75,3 @@ class ImportData:
             speeds.append(row[template + str(i).zfill(2)])
         patient.speeds = speeds
         patient.sampling_rate = 100
-
-    @staticmethod
-    def split_data(patients, seed, proportion):
-        train_set = []
-        test_set = []
-
-        with_parkinson = list(filter(lambda example: example.has_parkinson, patients))
-        without_parkinson = list(filter(lambda example: not example.has_parkinson, patients))
-
-        index = int(len(with_parkinson) * proportion)
-        train_set += with_parkinson[:index]
-        test_set += with_parkinson[index:]
-
-        index = int(len(without_parkinson) * proportion)
-        train_set += without_parkinson[:index]
-        test_set += without_parkinson[index:]
-
-        random.seed(seed)
-        random.shuffle(train_set)
-        random.shuffle(test_set)
-
-        return train_set, test_set
