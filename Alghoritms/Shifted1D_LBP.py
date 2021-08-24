@@ -1,11 +1,13 @@
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from scipy.fft import fft
 import numpy as np
 
 
 class Shifted1D_LBP:
     def __init__(self):
+        self.has_parkinson = None
         self.no_neightbours = None
         self.no_central = None
         self.time = None
@@ -77,4 +79,30 @@ class Shifted1D_LBP:
         self.skewness = self.preprocessed_signal_numpy.size / (
                     (self.preprocessed_signal_numpy.size - 1) * (self.preprocessed_signal_numpy.size - 2)) * np.nansum(
             skewness_part)
+        return self.skewness
+
+    def calculate_features(self):
+        self.calculate_entropy()
+        self.calculate_energy()
+        self.calculate_correlation()
+        self.calculate_coefficient_of_variation()
+        self.calculate_kurtosis()
+        self.calculate_skewness()
+
+    def get_entropy(self):
+        return self.entropy
+
+    def get_energy(self):
+        return self.energy
+
+    def get_correlation(self):
+        return self.correlation
+
+    def get_coefficient_of_variation(self):
+        return self.cov
+
+    def get_kurtosis(self):
+        return self.kurtosis
+
+    def get_skewness(self):
         return self.skewness
