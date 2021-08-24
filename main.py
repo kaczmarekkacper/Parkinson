@@ -30,7 +30,7 @@ def prepare_set(demographics, patients, ids, columns):
         person = {}
         for column in columns:
             alg = Shifted1D_LBP.Shifted1D_LBP()
-            alg.no_central = 2
+            alg.no_central = 1
             alg.no_neightbours = 8
             alg.time = list(patients[patients['ID'] == id]['Time'])
             alg.signal_to_preprocess = list(patients[patients['ID'] == id][column])
@@ -72,31 +72,5 @@ if __name__ == '__main__':
     for model in models:
         model.train(train_set=train_set, lambdas=lambdas)
         model.test(test_set=test_set, lambdas=lambdas)
-
-
-    # alg = Shifted1D_LBP.Shifted1D_LBP()
-    # alg.no_central = 2
-    # alg.no_neightbours = 8
-    # alg.time = list(patients_train[patients_train['ID'] == 'SiPt20']['Time'])
-    # alg.signal_to_preprocess = list(patients_train[patients_train['ID'] == 'SiPt20']['Force_Left'])
-    #
-    # alg.shifting()
-    #
-    # alg.calculate_entropy()
-    # alg.calculate_energy()
-    # alg.calculate_correlation()
-    # alg.calculate_coefficient_of_variation()
-    # alg.calculate_kurtosis()
-    #
-    # plt.plot(patients_train[patients_train['ID'] == 'SiPt20']['Time'][0:-9],
-    #          alg.preprocessed_signal)
-    # plt.title('SiPt20 Force_Left shifted')
-    # plt.show()
-    #
-    # plt.plot(patients_train[patients_train['ID'] == 'SiPt20']['Time'],
-    #          patients_train[patients_train['ID'] == 'SiPt20']['Force_Left'])
-    # plt.title('SiPt20 Force_Left')
-    # plt.show()
-
 
         
