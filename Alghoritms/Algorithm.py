@@ -1,5 +1,6 @@
 
 import numpy as np
+from sklearn.metrics import confusion_matrix
 
 
 class Algorithm:
@@ -47,8 +48,14 @@ class Algorithm:
 
         correct = (np.array(self.test_labels) == predict_labels).sum()
         all = len(test_inputs)
+        tn, fp, fn, tp = confusion_matrix(np.array(self.test_labels), predict_labels).ravel()
+        accuracy = (tp + tn) / (tp+tn+fp+fn)
+        sensitivity = tp / (tp+fn)
+        specificity = tn / (fp+tn)
 
-        print(f"{self.algorithm_name()}: {correct} out of {all} = {round(correct/all*100, 2)}%")
+        print(f"{self.algorithm_name()}: {tp+tn} out of {all} = {round(correct/all*100, 2)}%")
+
+        return accuracy, sensitivity, specificity
 
     def algorithm_name(self):
         return "Algorithm"

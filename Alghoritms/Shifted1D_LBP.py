@@ -12,6 +12,7 @@ class Shifted1D_LBP:
         self.no_central = None
         self.time = None
         self.signal_to_preprocess = None
+
         self.preprocessed_signal = None
         self.entropy = None
         self.energy = None
@@ -44,25 +45,20 @@ class Shifted1D_LBP:
             preprocessed_signal.append(self.convert_bin_to_int(binary_number))
         return preprocessed_signal
 
-    def convert_to_frequency(self):
+    def shifting_freq(self):
         frequency_signal_to_preprocess = fft(self.signal_to_preprocess)
-        self.preprocessed_frequency_signal = self.shift_signal(frequency_signal_to_preprocess)
+        self.preprocessed_frequency_signal = np.array(self.shift_signal(frequency_signal_to_preprocess))
 
-    def convert_bin_to_int(self, str_number):
+    @staticmethod
+    def convert_bin_to_int(str_number):
         return int(str_number, 2)
-
-    def calculate_entropy(self):
-        sum_squared_sqrt = np.sqrt(np.sum(np.square(self.preprocessed_signal)))
-        entropy_function = lambda value: (value / sum_squared_sqrt) * np.log(value / sum_squared_sqrt)
-        entropy = np.array([entropy_function(x) for x in self.preprocessed_signal])
-        self.entropy = np.nansum(entropy)
-        return self.entropy
 
     def calculate_entropy(self, signal):
         sum_squared_sqrt = np.sqrt(np.sum(np.square(signal)))
         entropy_function = lambda value: (value / sum_squared_sqrt) * np.log(value / sum_squared_sqrt)
         entropy = np.array([entropy_function(x) for x in signal])
-        return np.nansum(entropy)
+        self.entropy = np.nansum(entropy)
+        return self.entropy
 
     def calculate_entropy_time(self):
         self.entropy = self.calculate_entropy(self.preprocessed_signal)
@@ -141,8 +137,8 @@ class Shifted1D_LBP:
         return self.skewness
 
     def calculate_skewness_freq(self):
-        self.skewness = self.calculate_skewness(self.preprocessed_frequency_signal)
-        return self.skewness
+        self.freq_skewness = self.calculate_skewness(self.preprocessed_frequency_signal)
+        return self.freq_skewness
 
     def calculate_features(self):
         self.calculate_entropy_time()
@@ -151,6 +147,8 @@ class Shifted1D_LBP:
         self.calculate_coefficient_of_variation_time()
         self.calculate_kurtosis_time()
         self.calculate_skewness_time()
+
+    def calculate_features_freq(self):
         self.calculate_entropy_freq()
         self.calculate_energy_freq()
         self.calculate_correlation_freq()

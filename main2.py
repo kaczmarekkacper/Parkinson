@@ -9,10 +9,6 @@ import pandas as pd
 from Alghoritms import Shifted1D_LBP
 import math
 
-
-# def make_results(train_set, test_set):
-
-
 def load_config(path):
     config = configparser.ConfigParser()
     config.read(path)
@@ -39,8 +35,8 @@ def prepare_set(demographics, patients, ids, columns, no_central):
             alg.no_neightbours = 8
             alg.time = list(patients[patients['ID'] == id]['Time'])
             alg.signal_to_preprocess = list(patients[patients['ID'] == id][column])
-            alg.shifting()
-            alg.calculate_features()
+            alg.shifting_freq()
+            alg.calculate_features_freq()
             alg.has_parkinson = check_if_has_parkinson(demographics, id)
             person[column] = alg
         prepared_set[id] = person
@@ -64,8 +60,8 @@ if __name__ == '__main__':
     columns = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8',
                'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'Force_Left', 'Force_Right']
 
-    lambdas = [lambda x: x.get_entropy(), lambda x: x.get_energy(), lambda x: x.get_correlation(),
-               lambda x: x.get_coefficient_of_variation(), lambda x: x.get_kurtosis(), lambda x: x.get_skewness()]
+    lambdas = [lambda x: x.get_entropy_freq(), lambda x: x.get_energy_freq(), lambda x: x.get_correlation_freq(),
+               lambda x: x.get_coefficient_of_variation_freq(), lambda x: x.get_kurtosis_freq(), lambda x: x.get_skewness_freq()]
 
     data = {}
     models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(),
@@ -85,4 +81,4 @@ if __name__ == '__main__':
 
     df = pd.DataFrame(data)
 
-    df.to_csv('results.csv')
+    df.to_csv('results_freq.csv')
