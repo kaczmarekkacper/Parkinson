@@ -68,15 +68,15 @@ if __name__ == '__main__':
                lambda x: x.get_coefficient_of_variation(), lambda x: x.get_kurtosis(), lambda x: x.get_skewness()]
 
     data = {}
-    models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(),
-              DecisionTree.DecisionTree(),
-              RandomForest.RandomForest(), MLP.MLP(), QuadraticDiscriminant.QuadraticDiscriminant(),
-              AdaBoost.AdaBoost()]
     for no_central in range(9):
         data[f"({no_central}, {8 - no_central})"] = {}
         print(no_central)
         train_set = prepare_set(demographics, patients_train, train_ids, columns, no_central)
         test_set = prepare_set(demographics, patients_test, test_ids, columns, no_central)
+        models = [GaussNB.GaussNB(), SVM.SVM(), KNeighbors.KNeighbors(), GaussianProcess.GaussianProcess(),
+                  DecisionTree.DecisionTree(),
+                  RandomForest.RandomForest(), MLP.MLP(), QuadraticDiscriminant.QuadraticDiscriminant(),
+                  AdaBoost.AdaBoost()]
         for model in models:
             print(model.algorithm_name())
             model.train(train_set=train_set, lambdas=lambdas)
