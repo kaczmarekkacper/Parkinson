@@ -3,14 +3,10 @@ from sklearn.model_selection import train_test_split
 from ImportData import ImportData
 from Alghoritms import GaussNB, SVM, KNeighbors, GaussianProcess, DecisionTree, RandomForest, MLP, \
     QuadraticDiscriminant, AdaBoost
-from tsfresh import extract_features
 import configparser
 import pandas as pd
 from Alghoritms import Shifted1D_LBP
 import math
-
-
-# def make_results(train_set, test_set):
 
 
 def load_config(path):
